@@ -8,7 +8,7 @@ $(document).ready(function() {
         timeslotHeight: 30,
         hourLine: true,
         height: function($calendar) {
-        return $(window).height() - $('h1').outerHeight(true);
+            return $(window).height() - $('h1').outerHeight(true);
         },
         eventRender : function(calEvent, $event) {
             if (calEvent.end.getTime() < new Date().getTime()) {
@@ -18,7 +18,10 @@ $(document).ready(function() {
         },
         eventNew: function(calEvent, $event) {
             displayMessage('<strong>Added event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
-            alert('You\'ve added a new event. You would capture this event, add the logic for creating a new event with your own fields, data and whatever backend persistence you require.');
+            var eventName = prompt("Event name?");
+            calEvent.title = eventName;
+            console.log(this);
+            //alert('You\'ve added a new event. You would capture this event, add the logic for creating a new event with your own fields, data and whatever backend persistence you require.');
         },
         eventDrop: function(calEvent, $event) {
             displayMessage('<strong>Moved Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
