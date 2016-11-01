@@ -18,9 +18,9 @@ $(document).ready(function() {
         },
         eventNew: function(calEvent, $event) {
             displayMessage('<strong>Added event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
-            var eventName = prompt("Event name?");
-            calEvent.title = eventName;
+            calEvent = getEventDetails(calEvent);
             console.log(this);
+            this.eventRender(calEvent, $event);
             //alert('You\'ve added a new event. You would capture this event, add the logic for creating a new event with your own fields, data and whatever backend persistence you require.');
         },
         eventDrop: function(calEvent, $event) {
@@ -31,6 +31,11 @@ $(document).ready(function() {
         },
         eventClick: function(calEvent, $event) {
             displayMessage('<strong>Clicked Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
+            var shouldEdit = prompt("Edit event?");
+            if (shouldEdit) {
+                calEvent = getEventDetails(calEvent);
+            }
+
         },
         eventMouseover: function(calEvent, $event) {
             displayMessage('<strong>Mouseover Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
@@ -45,6 +50,16 @@ $(document).ready(function() {
 
     function displayMessage(message) {
         $('#message').html(message).fadeIn();
+    }
+
+    function getEventDetails(calEvent) {
+        var eventName = prompt("Event name?");
+        if (eventName !== null) {
+            calEvent.title = eventName;
+        } else {
+            calEvent = null;
+        }
+        return calEvent;
     }
 
     $('<div id="message" class="ui-corner-all"></div>').prependTo($('body'));
